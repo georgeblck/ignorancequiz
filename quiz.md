@@ -27,9 +27,9 @@ Untertitel: Deutsche schaffen nur 3 von 13 Punkte
   * **70 Jahre**
 
 5. Heute leben 2 Milliarden Kinder im Alter von 0 bis 15 Jahren auf der Welt. Wie viele Kinder werden es laut Angaben der Vereinten Nationen im Jahr 2100 sein?
-  * 4 Milliarde
-  * 3 Milliarde
-  * **2 Milliarde**
+  * 4 Milliarden
+  * 3 Milliarden
+  * **2 Milliarden**
 
 6. Nach einer Prognose der UN wird die Weltbevölkerung bis 2100 um weitere 4 Milliarden Menschen wachsen. Was ist die Hauptursache dafür?
   * Es wird mehr Kinder geben (jünger als 15 Jahre).
@@ -74,7 +74,9 @@ Richtige Antwort: A
 
 # Antworttext
 
-1. 9% niedriges einkommen, 76 mittleres, 16% hohes einkommen <www.gapm.io/xwb174>
-2. Die richtige Antwort ist C. 60 % der Mädchen in einkommensschwachen Ländern schließen die Grundschule ab. Laut World Bank li
-3. Die richtige Antwort ist B. Laut World Bank ist der Anteil der Menschen, die von weniger als 1,90 US-Dollar pro Tag leben, von 34 Prozent im Jahr 1993 auf 10,7 Prozent im Jahr 2013 zurückgegangen. Der präzise Wert von 1,90 US-Dollar/Tag vermittelt den Eindruck großer Genauigkeit, es bleibt jedoch ein großer Spielraum der Ungewissheit. Extreme Armut ist nur sehr schwer zu beziffern: Die ärmsten Menschen sind zumeist einfache Bauern oder mittellose Slumbewohner, deren Lebensbedingungen entweder unvorhersehbaren oder ständigen Veränderungen unterworfen sind - finanzielle Transaktionen in Verbindung mit diesen Bevölkerungsgruppen sind kaum dokumentiert. Selbst wenn die exakten Einstufungen ungewiss sind, kann man jedoch von einem sicheren Aufwärtstrend sprechen, schon weil die Fehlerquellen über längere Zeit konstant bleiben dürften. Wir können darauf vertrauen, dass der Armutsanteil mindestens auf die Hälfte, vielleicht sogar auf ein Drittel zurückgegangen ist. Siehe gapm.io/q3.
-4. Die richtige Antwort ist C. Die durchschnittliche Lebenserwartung weltweit liegt für die im Jahr 2016 Geborenen bei 72,48 Jahren gemäß IHME. Die Schätzungen von UN-Pop liegt etwas niedriger, bei 71,9 Jahren. Wir haben den Wert auf 70 Jahre abgerundet, um eine Übertreibung der erzielten Fortschritte zu vermeiden. Siehe gapm.io/q4
+1. Die richtige Antwort ist B. Die Mehrheit der Menschen lebt in Ländern mit mittlerem Einkommen. Die World Bank unterteilt die Länder in Einkommensgruppen auf der Basis des Bruttovolkseinkommens pro Kopf in US-Dollar. Laut World Bank leben 10 Prozent der Weltbevölkerung in einkommensschwachen Ländern, 74 Prozent in Ländern mit mittlerem Einkommen und 16 Prozent in Ländern mit hohem Einkommen.
+2. Die richtige Antwort ist C. 60 % der Mädchen in einkommensschwachen Ländern schließen die Grundschule ab. Laut World Bank liegt der Wert im Jahr 2017 bei 64,23%.
+3. Die richtige Antwort ist B. Laut World Bank ist der Anteil der Menschen, die von weniger als 1,90 US-Dollar pro Tag leben, von 34 Prozent im Jahr 1993 auf 9,9 Prozent im Jahr 2015 zurückgegangen. Der präzise Wert von 1,90 US-Dollar/Tag vermittelt den Eindruck großer Genauigkeit, es bleibt jedoch ein großer Spielraum der Ungewissheit. Extreme Armut ist nur sehr schwer zu beziffern: Die ärmsten Menschen sind zumeist einfache Bauern oder mittellose Slumbewohner, deren Lebensbedingungen entweder unvorhersehbaren oder ständigen Veränderungen unterworfen sind - finanzielle Transaktionen in Verbindung mit diesen Bevölkerungsgruppen sind kaum dokumentiert. Selbst wenn die exakten Einstufungen ungewiss sind, kann man jedoch von einem sicheren Aufwärtstrend sprechen, schon weil die Fehlerquellen über längere Zeit konstant bleiben dürften. Wir können darauf vertrauen, dass der Armutsanteil mindestens auf die Hälfte, vielleicht sogar auf ein Drittel zurückgegangen ist.
+4. Die richtige Antwort ist C. Die durchschnittliche Lebenserwartung weltweit liegt für die im Jahr 2016 Geborenen bei 72,48 Jahren gemäß IHME. Die Schätzungen von UN-Pop liegt etwas niedriger, bei 71,9 Jahren.
+5. Die richtige Antwort ist C. Seit zehn Jahren veröffentlicht UN-Pop Prognosen, denen zufolge die Zahl der Kinder im Jahr 2100 nicht höher sein wird als heute.
+6. Die richtige Antwort ist B.
