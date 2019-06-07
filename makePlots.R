@@ -6,6 +6,8 @@ library(formatR)
 library(tidyverse)
 library(ggthemes)
 library(zoo)
+library(countrycode)
+
 
 # load data
 girlschool <- read_excel("data/API_SE.PRM.CMPT.FE.ZS_DS2_en_excel_v2_10582352.xls", sheet = "Data", skip = 2)
@@ -31,7 +33,7 @@ lifedata %>% mutate(predic = ifelse(MidPeriod > 2017, 1, 0)) %>% ggplot(aes(x = 
     geom_area(aes(fill = factor(predic)), colour = "white") + geom_hline(yintercept = 40, col = "white") + 
     geom_hline(yintercept = 60, col = "white") + geom_hline(yintercept = 80, col = "white") + geom_hline(yintercept = 20, 
     col = "white") + scale_x_continuous(expand = c(0.01, 0), breaks = c(1953, 2000, 2018, 2050, 2098), 
-    labels = c(1950, 2000, 2019, 2050, 2100)) + scale_y_continuous(expand = c(0.01, 0), breaks = seq(0, 
+    labels = c(1950,2000,2019,2050,2100)) + scale_y_continuous(expand = c(0.01, 0), breaks = seq(0, 
     100, 20), limits = c(0, 100)) + scale_linetype_discrete(guide = FALSE) + geom_line(aes(linetype = factor(predic)), 
     size = 1.5) + theme_tufte(base_size = 15) + theme(axis.title = element_blank()) + scale_fill_manual(guide = FALSE, 
     values = c("white", "grey90")) + annotate("text", x = 1955, y = 90, family = "serif", size = 8, label = "Durchschnittliche Lebenserwartung\nbei der Geburt (weltweit)", 
@@ -102,7 +104,7 @@ catastrophe %>% mutate(decade = year - year%%10) %>% group_by(decade) %>% summar
     col = "white") + geom_hline(yintercept = 8, col = "white") + geom_line(size = 1.5) + scale_x_continuous(limits = c(1900, 
     2010), breaks = c(seq(1900, 2010, 25), 2010), expand = c(0.01, 0)) + scale_y_continuous(limits = c(0, 
     10), breaks = seq(0, 10, 2), expand = c(0.01, 0)) + annotate("text", x = 1935, y = 8.5, family = "serif", 
-    size = 8, label = "Todesopfer von Naturkatastrophen\nüber die Jahrzente (in Mio.)", hjust = 0)
+    size = 8, label = "Todesfälle durch Naturkatastrophen\nüber die Jahrzente (in Mio.)", hjust = 0)
 ggsave("plots/catastroph.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
@@ -114,7 +116,7 @@ poppredict %>% filter(AgeGrpStart <= 10, Location == "World") %>% group_by(Time)
     col = "white") + scale_x_continuous(expand = c(0.01, 0), breaks = c(1950, 2000, 2019, 2050, 2100)) + 
     scale_y_continuous(expand = c(0.01, 0), breaks = seq(0, 2.5, 0.5), limits = c(0, 2.5)) + scale_linetype_discrete(guide = FALSE) + 
     geom_line(aes(linetype = factor(predic)), size = 1.5) + theme_tufte(base_size = 15) + theme(axis.title = element_blank()) + 
-    scale_fill_manual(guide = FALSE, values = c("white", "grey90")) + annotate("text", x = 1955, y = 2.35, 
+    scale_fill_manual(guide = FALSE, values = c("white", "grey90")) + annotate("text", x = 1955, y = 2.3, 
     family = "serif", size = 8, label = "Weltweite Anzahl an Kindern (0-14 Jahre)\nin Milliarden", hjust = 0) + 
     annotate("text", x = 2043, y = 2.16, family = "serif", size = 5, label = "Schätzung der UN", col = "black", 
         hjust = 0)
