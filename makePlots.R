@@ -73,7 +73,9 @@ ggplot(kidspop, aes(x = Time, y = PopTotal/1e+06, fill = agegrp)) + geom_area(ae
     annotate("text", x = 2025, y = 1, family = "serif", size = 7, label = "Kindern (0-14 Jahre)", hjust = 0) + 
     annotate("text", x = 2025, y = 6.5, family = "serif", size = 7, label = "Erwachsenen (15-74 Jahre)", 
         hjust = 0) + annotate("text", x = 2025, y = 11, family = "serif", size = 7, label = "Alten (75+ Jahre)", 
-    hjust = 0) + ggtitle("Weltweite Anzahl an ... (in Mrd.)") + theme(plot.title = element_text(hjust = 0.5))
+    hjust = 0) + ggtitle("Weltweite Anzahl an ... (in Mrd.)") + theme(plot.title = element_text(hjust = 0.5))+
+  annotate("text", x = 2071, y = 10.88, family = "serif", size = 4, label = "Schätzung der UN", 
+           col = "black", hjust = 0, angle = 9)
 ggsave("plots/antwort6.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
