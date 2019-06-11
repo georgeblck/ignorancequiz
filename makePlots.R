@@ -7,6 +7,9 @@ library(tidyverse)
 library(ggthemes)
 library(zoo)
 library(countrycode)
+library(knitr)
+library(rworldmap)
+library(Cairo)
 
 
 # load data
@@ -23,10 +26,23 @@ colnames(popshare) <- make.names(colnames(popshare), unique = TRUE)
 lifedata <- read_csv("data/WPP2017_Period_Indicators_Medium.csv") %>% filter(Location == "World")
 countrypop <- read_csv("data/WPP2017_TotalPopulationBySex.csv")
 countrypop$continent <- countrycode(countrypop$LocID, "iso3n", "continent") 
+data(coastsCoarse)
+
 
 # Population bei Kontinent
 yo <- countrypop %>% group_by(continent, Time) %>% summarise_at("PopTotal", 
                                                      sum, na.rm = TRUE) %>% ungroup() %>% mutate(predic = ifelse(Time > 2019, 1, 0)) %>% filter(Time==2017)
+
+# Make Plot
+Cairo(file="plots/map.pdf", 
+      type="pdf",
+      units="cm", 
+      width=10, 
+      height=6, 
+      pointsize=1,
+      res=96)
+plot(coastsCoarse)
+dev.off()
 
 # Lebenserwartung über die Jahre
 lifedata %>% mutate(predic = ifelse(MidPeriod > 2017, 1, 0)) %>% ggplot(aes(x = MidPeriod, y = LEx)) + 
@@ -38,8 +54,8 @@ lifedata %>% mutate(predic = ifelse(MidPeriod > 2017, 1, 0)) %>% ggplot(aes(x = 
     size = 1.5) + theme_tufte(base_size = 15) + theme(axis.title = element_blank()) + scale_fill_manual(guide = FALSE, 
     values = c("white", "grey90")) + annotate("text", x = 1955, y = 90, family = "serif", size = 8, label = "Durchschnittliche Lebenserwartung\nbei der Geburt (weltweit)", 
     hjust = 0) + annotate("text", x = 2043, y = 79, family = "serif", size = 5, label = "Schätzung der UN", 
-    col = "black", hjust = 0, angle = 6.5)
-ggsave("plots/life.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+    col = "black", hjust = 0, angle = 6.1)
+ggsave("plots/antwort4.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
 # Bevölkerungsentwicklung bzgl. Alter
@@ -47,10 +63,10 @@ kidspop <- poppredict %>% filter(Location == "World") %>% mutate(agegrp = cut(Ag
     10, 70, Inf), labels = c("Kids", "Middle", "Old"))) %>% group_by(agegrp, Time) %>% summarise_at("PopTotal", 
     sum, na.rm = TRUE) %>% ungroup() %>% mutate(predic = ifelse(Time > 2019, 1, 0))
 kidspop$agegrp <- factor(kidspop$agegrp, levels = levels(kidspop$agegrp)[c(3, 2, 1)])
-ggplot(kidspop, aes(x = Time, y = PopTotal/1e+06, fill = agegrp)) + geom_area(alpha = 0.6, size = 1, 
-    color = "black") + theme_tufte(base_size = 15) + theme(axis.title = element_blank()) + scale_fill_manual(guide = FALSE, 
-    values = c("black", "grey", "white")) + geom_segment(x = 2019, xend = 2019, y = 0, yend = 12, col = "red", 
-    alpha = 0.6) + scale_x_continuous(limits = c(1950, 2100), breaks = c(1950, 2000, 2019, 2050, 2100), 
+ggplot(kidspop, aes(x = Time, y = PopTotal/1e+06, fill = agegrp)) + geom_area(aes(linetype=factor(predic)),alpha = 0.6, size = 1, 
+    color = "black") + theme_tufte(base_size = 15) + theme(axis.title = element_blank())+ scale_linetype_discrete(guide=FALSE) + scale_fill_manual(guide = FALSE, 
+    values = c("black", "grey", "white")) + #geom_segment(x = 2019, xend = 2019, y = 0, yend = 12, col = "red", alpha = 0.6) + 
+  scale_x_continuous(limits = c(1950, 2100), breaks = c(1950, 2000, 2019, 2050, 2100), 
     expand = c(0.01, 0)) + scale_y_continuous(limits = c(0, 12), breaks = seq(0, 12, 3), expand = c(0.01, 
     0)) + geom_hline(yintercept = 3, col = "white", linetype = "dotted") + geom_hline(yintercept = 6, 
     col = "white", linetype = "dotted") + geom_hline(yintercept = 9, col = "white", linetype = "dotted") + 
@@ -58,7 +74,7 @@ ggplot(kidspop, aes(x = Time, y = PopTotal/1e+06, fill = agegrp)) + geom_area(al
     annotate("text", x = 2025, y = 6.5, family = "serif", size = 7, label = "Erwachsenen (15-74 Jahre)", 
         hjust = 0) + annotate("text", x = 2025, y = 11, family = "serif", size = 7, label = "Alten (75+ Jahre)", 
     hjust = 0) + ggtitle("Weltweite Anzahl an ... (in Mrd.)") + theme(plot.title = element_text(hjust = 0.5))
-ggsave("plots/agepop.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+ggsave("plots/antwort6.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
 
@@ -82,7 +98,7 @@ ggplot(popshare, aes(x = year, y = popratio, fill = incometype)) + geom_area(alp
     hjust = 0) + annotate("text", x = 1981, y = 0.5, family = "serif", size = 7, label = "mittlerem Einkommen", 
     hjust = 0) + annotate("text", x = 1981, y = 0.9, family = "serif", size = 7, label = "hohem Einkommen", 
     hjust = 0) + ggtitle("Anteil der Weltbevölkerung mit ...") + theme(plot.title = element_text(hjust = 0.5))
-ggsave("plots/incometime.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+ggsave("plots/antwort1.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 # Mädchen Grunschule
 girlschool <- girlschool %>% filter(Country.Code == "LIC") %>% select(-c(1, 3, 4)) %>% gather(year, girlperc, 
@@ -94,7 +110,7 @@ girlschool %>% ggplot(aes(x = year, y = girlperc)) + geom_area(position = "ident
     col = "white") + geom_hline(yintercept = 40, col = "white") + geom_hline(yintercept = 60, col = "white") + 
     geom_line(size = 1.5) + annotate("text", x = 1975, y = 70, family = "serif", size = 8, label = "Anteil an Mädchen, die in\neinkommensschwachen Ländern\ndie Grundschule abschließen", 
     hjust = 0)
-ggsave("plots/girlschool.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+ggsave("plots/antwort2.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 # Catastrophes
 catastrophe %>% mutate(decade = year - year%%10) %>% group_by(decade) %>% summarise_at("Total.deaths", 
@@ -102,10 +118,10 @@ catastrophe %>% mutate(decade = year - year%%10) %>% group_by(decade) %>% summar
     fill = "grey90", colour = "white") + theme_tufte(base_size = 15) + theme(axis.title = element_blank()) + 
     geom_hline(yintercept = 2, col = "white") + geom_hline(yintercept = 4, col = "white") + geom_hline(yintercept = 6, 
     col = "white") + geom_hline(yintercept = 8, col = "white") + geom_line(size = 1.5) + scale_x_continuous(limits = c(1900, 
-    2010), breaks = c(seq(1900, 2010, 25), 2010), expand = c(0.01, 0)) + scale_y_continuous(limits = c(0, 
+    2010), breaks = c(seq(1900, 2000, 25)), expand = c(0.01, 0),labels = c("1900-1909", "1920-1929", "1950-1959", "1970-1979", "2000-2009")) + scale_y_continuous(limits = c(0, 
     10), breaks = seq(0, 10, 2), expand = c(0.01, 0)) + annotate("text", x = 1935, y = 8.5, family = "serif", 
-    size = 8, label = "Todesfälle durch Naturkatastrophen\nüber die Jahrzente (in Mio.)", hjust = 0)
-ggsave("plots/catastroph.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+    size = 8, label = "Todesfälle durch Naturkatastrophen\nüber die Jahrzehnte (in Mio.)", hjust = 0)
+ggsave("plots/antwort7.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
 # Populationsvorhersage fpr Kinder
@@ -120,7 +136,7 @@ poppredict %>% filter(AgeGrpStart <= 10, Location == "World") %>% group_by(Time)
     family = "serif", size = 8, label = "Weltweite Anzahl an Kindern (0-14 Jahre)\nin Milliarden", hjust = 0) + 
     annotate("text", x = 2043, y = 2.16, family = "serif", size = 5, label = "Schätzung der UN", col = "black", 
         hjust = 0)
-ggsave("plots/kidspop.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+ggsave("plots/antwort5.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 # geom_segment(x = 2019.5, xend = 2019.5, y = 1.6, yend = 2.3, col = 'red')
 
 
@@ -135,7 +151,7 @@ poverty %>% drop_na(extrpov) %>% ggplot(aes(x = year, y = extrpov)) + geom_area(
     2017), breaks = c(1981, seq(1990, 2010, 10), 2015), expand = c(0.01, 0)) + geom_point() + geom_line(size = 1.5) + 
     annotate("text", x = 1994, y = 43, family = "serif", size = 8, label = "Weltweiter Anteil an Menschen\nin extremer Armut", 
         hjust = 0)
-ggsave("plots/extrpov.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
+ggsave("plots/antwort3.pdf", width = 10, height = 6, units = "cm", device = cairo_pdf, scale = 2.5)
 
 
 catastrophe %>% mutate(rolldeath = rollapply(Total.deaths, 10, mean, fill = NA, align = "left", na.rm = TRUE)) %>% 
